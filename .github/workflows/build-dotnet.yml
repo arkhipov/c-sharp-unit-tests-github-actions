@@ -18,6 +18,10 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
         run: dotnet restore
+      - name: Decrypt secrets
+        run: ./decrypt_secrets.sh
+        env:
+          SECRETS_PASSPHRASE: ${{ secrets.SECRETS_PASSPHRASE }}
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test
